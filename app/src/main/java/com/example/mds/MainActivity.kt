@@ -107,13 +107,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         addComplaint.setOnClickListener {
-             val intent = Intent(this, ComplaintActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            );
-            finish()
+            checkForPermissions(arrayListOf(android.Manifest.permission.CAMERA, android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
+                arrayListOf("camera", "location", "location_coarse"), arrayListOf(CAMERA_RQ, FINE_LOCATION_RQ, COARSE_LOCATION_RQ))
+          //  checkForPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, "location",FINE_LOCATION_RQ)
+           // checkForPermissions(android.Manifest.permission.ACCESS_COARSE_LOCATION, "location_coarse", COARSE_LOCATION_RQ)
+
         }
         btnLogout.setOnClickListener {
             mAuth = FirebaseAuth.getInstance()
@@ -396,7 +394,87 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-  
+    //getPermission
+    /**get Permission*/
+//    if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)== PackageManager.PERMISSION_DENIED
+//    && ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_DENIED) {
+//        ActivityCompat.requestPermissions(
+//            this,
+//            arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION),
+//            cameraRequestId
+//        )
+//        getLocation()
+//    }
+
+    private fun checkForPermissions(permission: ArrayList<String>, name: ArrayList<String>, requestCode: ArrayList<Int>)
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            when{
+                ContextCompat.checkSelfPermission(applicationContext, permission[0]) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(applicationContext, permission[1]) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(applicationContext, permission[2]) == PackageManager.PERMISSION_GRANTED->{
+                    Toast.makeText(applicationContext,"Permissions granted", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ComplaintActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    );
+                    finish()
+                }
+                shouldShowRequestPermissionRationale(permission[0]) -> showDialog(permission[0], name[0], requestCode[0])
+                shouldShowRequestPermissionRationale(permission[1]) -> showDialog(permission[0], name[1], requestCode[1])
+                shouldShowRequestPermissionRationale(permission[2]) -> showDialog(permission[0], name[2], requestCode[2])
+
+                else -> ActivityCompat.requestPermissions(this,
+                    arrayOf(permission[0],permission[1],permission[2]), requestCode[0])
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        fun innerCheck(name: String)
+        {
+            if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(applicationContext, "$name permission refused", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        when(requestCode){
+            FINE_LOCATION_RQ -> innerCheck("location")
+            COARSE_LOCATION_RQ -> innerCheck("location_coarse")
+            CAMERA_RQ -> innerCheck("camera")
+        }
+        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+
+            val intent = Intent(this, ComplaintActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+            );
+            finish()
+        }
+    }
+    private fun showDialog(permission: String,name: String, requestCode: Int)
+    {
+        val builder = AlertDialog.Builder(this)
+
+        builder.apply {
+            setMessage("Permission o access your $name is required to use this app")
+            setTitle("Permission required")
+            setPositiveButton("Ok"){ dialog, which ->
+                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), requestCode)
+            }
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
 
