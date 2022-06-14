@@ -71,17 +71,7 @@ class ComplaintActivity : AppCompatActivity(), LocationListener {
         databaseReference = FirebaseDatabase.getInstance().getReference("Complaints")
         myImage.setVisibility(View.GONE);
 
-            /**get Permission*/
-		
-		if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)== PackageManager.PERMISSION_DENIED
-		&& ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_DENIED) {
-        ActivityCompat.requestPermissions(
-            this,
-           arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION),
-            cameraRequestId
-       )
-       getLocation()
-    }
+        getLocation()
 
         cameraBtn.setOnClickListener {
 
