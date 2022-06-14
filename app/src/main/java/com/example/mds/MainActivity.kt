@@ -1,19 +1,23 @@
 package com.example.mds
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.text.FieldPosition
 
 const val EXTRA_USER_MAP = "EXTRA_USER_MAP"
 class MainActivity : AppCompatActivity() {
@@ -32,6 +36,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var roleUser: String
     private lateinit var institutionName: String
     private lateinit var searchBar: SearchView
+    private val cameraRequestId  = 1222
+    private val FINE_LOCATION_RQ = 101
+    private val COARSE_LOCATION_RQ = 102
+    private val CAMERA_RQ = 103
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,10 +107,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         addComplaint.setOnClickListener {
-            val intent = Intent(this, ComplaintActivity::class.java)
+             val intent = Intent(this, ComplaintActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
+            overridePendingTransition(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+            );
             finish()
         }
         btnLogout.setOnClickListener {
@@ -125,12 +135,19 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         displayMap.setOnClickListener{
-            val intent = Intent(this@MainActivity, MapsActivity::class.java)
-            intent.putExtra(EXTRA_USER_MAP, complaintList)
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
-
+            if(complaintList.isEmpty())
+            {
+                Toast.makeText(this,"You don't have any complaint",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                intent.putExtra(EXTRA_USER_MAP, complaintList)
+                startActivity(intent);
+                overridePendingTransition(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                );
+            }
         }
 
         adapter = RecyclerAdapter(complaintList)
@@ -379,6 +396,8 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+  
+    }
 
 
 
