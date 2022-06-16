@@ -1,5 +1,6 @@
 package com.example.mds
 
+
 object SignUpValidation {
     private const val EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
@@ -25,4 +26,3 @@ object SignUpValidation {
                 password.count{it.isDigit()} >= 3 && email.matches(EMAIL_PATTERN.toRegex())
     }
 }
-

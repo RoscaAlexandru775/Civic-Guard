@@ -24,7 +24,6 @@ class SignUp : AppCompatActivity() {
     private lateinit var editEmail: EditText
     private lateinit var editPassword: EditText
     private lateinit var btnSignUp: Button
-    private lateinit var btnLogin: Button
     private lateinit var mAuth: FirebaseAuth
     var databaseReference :  DatabaseReference? = null
     var database: FirebaseDatabase? = null
@@ -37,7 +36,7 @@ class SignUp : AppCompatActivity() {
         editEmail = findViewById(R.id.edit_email)
         editPassword = findViewById(R.id.edit_password)
         btnSignUp = findViewById(R.id.btnSignUp)
-        btnLogin = findViewById(R.id.loginText)
+
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance()
@@ -58,10 +57,11 @@ class SignUp : AppCompatActivity() {
                 editPassword.setError("Please enter password")
                 return@setOnClickListener
             }
-            signup(userName.text.toString(),editEmail.text.toString(),editPassword.text.toString())
+            //signup()
+            signup(userName.text.toString(),editEmail.text.toString(), editPassword.text.toString())
         }
 
-
+        val btnLogin = findViewById<TextView>(R.id.loginText) as TextView
         btnLogin.setOnClickListener{
             startActivity(Intent(this@SignUp, Login::class.java))
             overridePendingTransition(R.anim.slide_in_left,
@@ -70,45 +70,46 @@ class SignUp : AppCompatActivity() {
         }
 
     }
-    private  fun signup(username: String, email:String, password: String)
+    private fun signup(username: String, email:String, password: String)
     {
+        if (SignUpValidation.isValid(username, email, password)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         var token:String? = null
                         FirebaseMessaging.getInstance().token.addOnCompleteListener(
                             OnCompleteListener { task ->
-                            if (!task.isSuccessful) {
-                                return@OnCompleteListener
-                            }
+                                if (!task.isSuccessful) {
+                                    return@OnCompleteListener
+                                }
 
                                 token = task.result.toString()
 
-                            val user: User = User(
-                                username,
-                                email,
-                                "user",
-                                token
+                                val user: User = User(
+                                    username,
+                                    email,
+                                    "user",
+                                    token
                                 )
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().currentUser!!.uid)
-                                .setValue(user).addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        val intent = Intent(this@SignUp, MainActivity::class.java)
-                                        startActivity(intent)
-                                        overridePendingTransition(R.anim.slide_in_right,
-                                            R.anim.slide_out_left);
-                                        finish()
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                    .setValue(user).addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            val intent = Intent(this@SignUp, MainActivity::class.java)
+                                            startActivity(intent)
+                                            overridePendingTransition(R.anim.slide_in_right,
+                                                R.anim.slide_out_left);
+                                            finish()
 
-                                        Toast.makeText(this@SignUp, "Registration Success. ", Toast.LENGTH_LONG).show()
-                                        finish()
-                                    } else {
-                                        Toast.makeText(this@SignUp, "Registration failed, please try again with different data", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(this@SignUp, "Registration Success. ", Toast.LENGTH_LONG).show()
+                                            finish()
+                                        } else {
+                                            Toast.makeText(this@SignUp, "Registration failed, please try again with different data", Toast.LENGTH_SHORT).show()
+                                        }
                                     }
-                                }
 
-                                })
+                            })
 
 
                     } else {
@@ -117,6 +118,60 @@ class SignUp : AppCompatActivity() {
                     }
                 }
         }
+        else {
+            Toast.makeText(this@SignUp, "Invalid username or password", Toast.LENGTH_SHORT).show()
+        }
+    }
+//    private  fun signup( )
+//    {
+//        var username: String = userName.text.toString()
+//        var email:String = editEmail.text.toString()
+//        var password: String = editPassword.text.toString()
+//            mAuth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this) { task ->
+//                    if (task.isSuccessful) {
+//                        var token:String? = null
+//                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+//                            OnCompleteListener { task ->
+//                            if (!task.isSuccessful) {
+//                                return@OnCompleteListener
+//                            }
+//
+//                                token = task.result.toString()
+//
+//                            val user: User = User(
+//                                username,
+//                                email,
+//                                "user",
+//                                token
+//                                )
+//
+//                            FirebaseDatabase.getInstance().getReference("Users")
+//                                .child(FirebaseAuth.getInstance().currentUser!!.uid)
+//                                .setValue(user).addOnCompleteListener { task ->
+//                                    if (task.isSuccessful) {
+//                                        val intent = Intent(this@SignUp, MainActivity::class.java)
+//                                        startActivity(intent)
+//                                        overridePendingTransition(R.anim.slide_in_right,
+//                                            R.anim.slide_out_left);
+//                                        finish()
+//
+//                                        Toast.makeText(this@SignUp, "Registration Success. ", Toast.LENGTH_LONG).show()
+//                                        finish()
+//                                    } else {
+//                                        Toast.makeText(this@SignUp, "Registration failed, please try again with different data", Toast.LENGTH_SHORT).show()
+//                                    }
+//                                }
+//
+//                                })
+//
+//
+//                    } else {
+//
+//                        Toast.makeText(this@SignUp, "Registration failed, please try again", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//        }
 
 
 }

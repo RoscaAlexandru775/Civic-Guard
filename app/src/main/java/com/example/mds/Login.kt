@@ -105,8 +105,6 @@ class Login : AppCompatActivity() {
             finish()
         }
 
-
-
     }
 
 

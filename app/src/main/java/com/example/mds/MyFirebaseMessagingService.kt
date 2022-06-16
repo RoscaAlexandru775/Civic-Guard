@@ -24,7 +24,24 @@ const val channelName = "com.example.mds"
 
 class MyFirebaseMessagingService : FirebaseMessagingService(){
 
-
+//    private lateinit var mAuth: FirebaseAuth
+//
+//    override fun onNewToken(token: String) {
+//        Log.d("Token: ", "Refreshed token: $token")
+//
+//        mAuth = FirebaseAuth.getInstance()
+//        val user = mAuth.currentUser
+//        FirebaseDatabase.getInstance().getReference("Users").child(user?.uid.toString()).child("deviceToken").setValue(token).addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//
+//                Log.w("User ", user?.uid.toString())
+//            } else {
+//                Log.w("User ", "Failed ")
+//            }
+//        }
+//
+//
+//    }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if(remoteMessage.getNotification() != null)
@@ -47,8 +64,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         val intent = Intent(this,MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT)
+        val flags = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+            else -> FLAG_UPDATE_CURRENT
+        }
+        val pendingIntent = PendingIntent.getActivity(this,0,intent,flags)//PendingIntent.FLAG_ONE_SHOT)
 
         var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.image)
