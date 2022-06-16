@@ -75,6 +75,7 @@ Commits: https://github.com/RoscaAlexandru775/Civic-Guard/commits/master
 
 ## Refactoring si teste automate:
 [Refactorizare](https://github.com/RoscaAlexandru775/Civic-Guard/commit/9045a3ab443a5993120bfe8b60469fd3f116f0e2) - am modificat functia signup() si am adaugat un nou object SignUpValidation, unde am realizat mai multe verificari legate de username, email si parola. Verificarile sunt, astfel, mai usor de citit si inteles. De asemenea, am realizat [9 unit tests](https://github.com/RoscaAlexandru775/Civic-Guard/blob/master/app/src/test/java/com/example/mds/SignUpTest.kt) pentru a ne asigura ca functia functioneaza corect.
+![alt text](https://github.com/RoscaAlexandru775/Civic-Guard/blob/create_complaint/images/unit_tests.png)
 
 ## Design Patterns
 // TODO
