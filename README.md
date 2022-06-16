@@ -5,11 +5,10 @@
 - [Oprea Sergiu](https://github.com/opreaasergiu)
 - [Pislaru Alin](https://github.com/pislaru-alin)
 - [Iordache Ovidiu](https://github.com/OvidiuIordache1)
-- [Zamora Ionut]()
+- [Zamora Ionut](https://github.com/zzzamoraaa)
 
 ## Demo:
 Demo-ul aplicatiei poate fi gasit [aici]() 
-//TODO
 
 ## Description:
 Proiectul este o aplicatie in Android folosind Kotlin.
@@ -79,4 +78,7 @@ Commits: https://github.com/RoscaAlexandru775/Civic-Guard/commits/master
 ![alt text](https://github.com/RoscaAlexandru775/Civic-Guard/blob/create_complaint/images/unit_tests.png)
 
 ## Design Patterns
-// TODO
+Design Patterns: Aplicațiile Android sunt strâns legate de pattern-ul "Model-View-Controller". In cazul nostru am avut:
+- Model - Clasa ComplaintModel
+- View - Layout-ul Aplicatiei (activity/complaint.xml)
+- Control - ComplaintActivity	
