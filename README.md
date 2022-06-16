@@ -8,7 +8,8 @@
 - [Zamora Ionut](https://github.com/zzzamoraaa)
 
 ## Demo:
-Demo-ul aplicatiei poate fi gasit [aici](https://youtu.be/J_-CoKe3upU) 
+Demo-ul aplicatiei poate fi gasit [aici](https://youtu.be/J_-CoKe3upU)
+ 
 Link download apk: [dropbox](https://www.dropbox.com/s/59zn40mz3tcz1cv/CivicGuard.apk?dl=0)
 
 ## Description:
@@ -68,6 +69,7 @@ Am dezvoltat aplicatia in Android Studio, iar pentru build tool am folosit Gradl
 
 ## Source control:
 Branches: https://github.com/RoscaAlexandru775/Civic-Guard/branches
+ 
 Commits: https://github.com/RoscaAlexandru775/Civic-Guard/commits/master
 
 ## Refactoring si teste automate:
