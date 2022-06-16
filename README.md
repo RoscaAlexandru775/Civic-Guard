@@ -8,7 +8,8 @@
 - [Zamora Ionut](https://github.com/zzzamoraaa)
 
 ## Demo:
-Demo-ul aplicatiei poate fi gasit [aici]() 
+Demo-ul aplicatiei poate fi gasit [aici](https://youtu.be/J_-CoKe3upU) 
+Link download apk: [dropbox](https://www.dropbox.com/s/59zn40mz3tcz1cv/CivicGuard.apk?dl=0)
 
 ## Description:
 Proiectul este o aplicatie in Android folosind Kotlin.
@@ -22,28 +23,25 @@ Proiectul este o aplicatie in Android folosind Kotlin.
   De cate ori observa probleme pe care le poate trimite către autoritățile competente spre solutionare.
 
 ## User Stories:
-1)Ca un vizitator vreau să-mi pot crea un cont pentru a folosi aplicația. 
-2)Ca un vizitator vreau să pot să mă uit prin alte reclamații. 
-3)Ca un utilizator vreau să am o opțiune de Log In pentru a vedea progresul reclamației. 
-4)Ca un utilizator vreau să creez o reclamație pentru a semnala instituțiilor abilitate
-diferite probleme din oraș. 
-5)Ca un utilizator vreau să pot vedea dacă cineva a creat deja o reclamație pentru același
-deranjament.
-6)Ca utilizator vreau să am o notificarea atunci când statusul se schimbă.
-7)Ca un utilizator institutie vreau sa vad toate reclamatiile intr-un tabel.
-8)Ca un utilizator instituție vreau să pot vedea reclamatiile relevante pe o hartă.
-9)Ca un utilizator instituție vreau să modific statusul reclamatiei.
-10)Ca un utilizator instituție vreau să trimit mail reclamantilor pentru a cere detalii la nevoie.
-11)Ca un utilizator instituție vreau să am posibilitatea de a crea o reclamație în caz de 
-autosesizare.
-12)Ca un administrator vreau să pot gestiona conturile, baza de date etc. 
-13)Ca un administrator vreau sa pot crea conturi de utilizator institutie.
-14)Ca un dezvoltator vreau sa extind acoperirea aplicatiei la nivel national. 
-15)Ca un dezvoltator am nevoie sa învăța kotlin.
-16)Ca un dezvoltator am nevoie sa învăț sa creez baza de date. 
-17)Ca un dezvoltator am nevoie sa invat sa implementez accesul la cameră. 
-18)Ca un dezvoltator am nevoie sa invat sa implementez accesul la locație. 
-19)Ca un dezvoltator am nevoie de o săptămână pentru a rezolva eventualele erori.
+1. Ca un vizitator vreau să-mi pot crea un cont pentru a folosi aplicația. 
+2. Ca un vizitator vreau să pot să mă uit prin alte reclamații. 
+3. Ca un utilizator vreau să am o opțiune de Log In pentru a vedea progresul reclamației. 
+4. Ca un utilizator vreau să creez o reclamație pentru a semnala instituțiilor abilitate diferite probleme din oraș. 
+5. Ca un utilizator vreau să pot vedea dacă cineva a creat deja o reclamație pentru același deranjament.
+6. Ca utilizator vreau să am o notificarea atunci când statusul se schimbă.
+7. Ca un utilizator institutie vreau sa vad toate reclamatiile intr-un tabel.
+8. Ca un utilizator instituție vreau să pot vedea reclamatiile relevante pe o hartă.
+9. Ca un utilizator instituție vreau să modific statusul reclamatiei.
+10. Ca un utilizator instituție vreau să trimit mail reclamantilor pentru a cere detalii la nevoie.
+11. Ca un utilizator instituție vreau să am posibilitatea de a crea o reclamație în caz de autosesizare.
+12. Ca un administrator vreau să pot gestiona conturile, baza de date etc. 
+13. Ca un administrator vreau sa pot crea conturi de utilizator institutie.
+14. Ca un dezvoltator vreau sa extind acoperirea aplicatiei la nivel national. 
+15. Ca un dezvoltator am nevoie sa învăța kotlin.
+16. Ca un dezvoltator am nevoie sa învăț sa creez baza de date. 
+17. Ca un dezvoltator am nevoie sa invat sa implementez accesul la cameră. 
+18. Ca un dezvoltator am nevoie sa invat sa implementez accesul la locație. 
+19. Ca un dezvoltator am nevoie de o săptămână pentru a rezolva eventualele erori.
 
 ## Backlog Creation:
 Pentru a ne organiza task-urile in timpul dezvoltarii aplicatiei am folosit [Trello](https://trello.com/b/XMGkaVW6/civic-guard).
