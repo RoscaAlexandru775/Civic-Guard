@@ -70,52 +70,58 @@ class SignUp : AppCompatActivity() {
         }
 
     }
-    private  fun signup(username: String, email:String, password: String)
+
+    private fun signup(username: String, email:String, password: String)
     {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        var token:String? = null
-                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
-                            OnCompleteListener { task ->
-                            if (!task.isSuccessful) {
-                                return@OnCompleteListener
-                            }
-
-                                token = task.result.toString()
-
-                            val user: User = User(
-                                username,
-                                email,
-                                "user",
-                                token
-                                )
-
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().currentUser!!.uid)
-                                .setValue(user).addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        val intent = Intent(this@SignUp, MainActivity::class.java)
-                                        startActivity(intent)
-                                        overridePendingTransition(R.anim.slide_in_right,
-                                            R.anim.slide_out_left);
-                                        finish()
-
-                                        Toast.makeText(this@SignUp, "Registration Success. ", Toast.LENGTH_LONG).show()
-                                        finish()
-                                    } else {
-                                        Toast.makeText(this@SignUp, "Registration failed, please try again with different data", Toast.LENGTH_SHORT).show()
-                                    }
+            if (SignUpValidation.isValid(username, email, password)) {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            var token:String? = null
+                            FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                                OnCompleteListener { task ->
+                                if (!task.isSuccessful) {
+                                    return@OnCompleteListener
                                 }
 
-                                })
+                                    token = task.result.toString()
+
+                                val user: User = User(
+                                    username,
+                                    email,
+                                    "user",
+                                    token
+                                    )
+
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                    .setValue(user).addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            val intent = Intent(this@SignUp, MainActivity::class.java)
+                                            startActivity(intent)
+                                            overridePendingTransition(R.anim.slide_in_right,
+                                                R.anim.slide_out_left);
+                                            finish()
+
+                                            Toast.makeText(this@SignUp, "Registration Success. ", Toast.LENGTH_LONG).show()
+                                            finish()
+                                        } else {
+                                            Toast.makeText(this@SignUp, "Registration failed, please try again with different data", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+
+                                    })
 
 
-                    } else {
+                        } else {
 
-                        Toast.makeText(this@SignUp, "Registration failed, please try again", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@SignUp, "Registration failed, please try again", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+            }
+        else {
+                Toast.makeText(this@SignUp, "Invalid username or password", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
