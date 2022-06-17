@@ -133,12 +133,19 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         displayMap.setOnClickListener{
-            val intent = Intent(this@MainActivity, MapsActivity::class.java)
-            intent.putExtra(EXTRA_USER_MAP, complaintList)
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
-
+            if(complaintList.isEmpty())
+            {
+                Toast.makeText(this,"You don't have any complaint",Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                intent.putExtra(EXTRA_USER_MAP, complaintList)
+                startActivity(intent);
+                overridePendingTransition(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                );
+            }
         }
 
         adapter = RecyclerAdapter(complaintList)
@@ -408,6 +415,13 @@ class MainActivity : AppCompatActivity() {
                         && ContextCompat.checkSelfPermission(applicationContext, permission[1]) == PackageManager.PERMISSION_GRANTED
                         && ContextCompat.checkSelfPermission(applicationContext, permission[2]) == PackageManager.PERMISSION_GRANTED->{
                     Toast.makeText(applicationContext,"Permissions granted", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ComplaintActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    );
+                    finish()
                 }
                 shouldShowRequestPermissionRationale(permission[0]) -> showDialog(permission[0], name[0], requestCode[0])
                 shouldShowRequestPermissionRationale(permission[1]) -> showDialog(permission[0], name[1], requestCode[1])
@@ -456,7 +470,7 @@ class MainActivity : AppCompatActivity() {
             setMessage("Permission o access your $name is required to use this app")
             setTitle("Permission required")
             setPositiveButton("Ok"){ dialog, which ->
-                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(permission), requestCode)
+                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), requestCode)
             }
         }
         val dialog: AlertDialog = builder.create()

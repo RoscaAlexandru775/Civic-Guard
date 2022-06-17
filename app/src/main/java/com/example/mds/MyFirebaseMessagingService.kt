@@ -24,6 +24,7 @@ const val channelName = "com.example.mds"
 
 class MyFirebaseMessagingService : FirebaseMessagingService(){
 
+
 //    private lateinit var mAuth: FirebaseAuth
 //
 //    override fun onNewToken(token: String) {
@@ -42,7 +43,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
 //
 //
 //    }
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if(remoteMessage.getNotification() != null)
         {
@@ -64,11 +64,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService(){
         val intent = Intent(this,MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
+
         val flags = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
             else -> FLAG_UPDATE_CURRENT
         }
         val pendingIntent = PendingIntent.getActivity(this,0,intent,flags)//PendingIntent.FLAG_ONE_SHOT)
+
 
         var builder: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(R.drawable.image)
